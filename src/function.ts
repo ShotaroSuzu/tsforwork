@@ -40,5 +40,55 @@ const functionPractise = () => {
         console.log(`${myName}は${favorite}が好きです`);
     }
 
+    // 関数を含むオブジェクトの定義方法。クラスを使うまでもない時
+    const smallAnimal = {
+        getName() { // 名前付き関数を定義するとそのままその属性になる。functionは省略できる
+            return "小動物"
+        },
+        _favorite: "小笠原",
+        get favorite() {// getter/setter専用の宣言方法。
+            return this._favorite;
+        },
+        set favorite(favorite) {
+            this._favorite = favorite;
+        },
+        hogefunction(arg) {
+            return "hoge";
+        }
+    }
+
+    // 現在ではなるべくthisは使わないようなコードがかけるので(アロー関数で書く)、今は省略
+
+    // 引数のセットを配列で渡したいとき
+    //昔の書き方
+    const f = (a, b, c) => {
+        console.log(a, b, c);
+    }
+    const params = [1, 2, 3];
+    f.apply(null, params);
+
+    //今はスプレッド構文があるので以下のようにかける(はずがなぜかコンパイルエラーになるな。。。)
+    // f(...params);
+
+    //残余引数という書き方もある。これは、関数の型定義の時に、引数に指定されたものの残りをまとめて配列(オブジェクト)で扱うことができるというもの
+    //配列の例
+    const f2 = (a, b, ...c) => {
+        console.log(a, b, ...c);
+    }
+    f2(1, 2, 3, 4, 5, 6,);
+
+    //オブジェクトの例（これでイケるきがするがなぜ。。。）
+    const f3 = ({ name, ...rest }) => {
+        console.log(name);
+        console.log(rest);
+    };
+
+    f3({ name: "suzu", age: 30, job: "writer" });
+
+    // 即時実行関数はwebpackなどのツールを導入していれば使うことはないだろう。
+    // ただし、レガシーなコードではまだまだ現役
+    var lib = (function () {
+        //ここにコードを書いて、その中身のスコープを限定する
+    })();
 
 }
